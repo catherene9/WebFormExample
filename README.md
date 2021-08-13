@@ -26,3 +26,8 @@ This repo contains the code and output of the course-Introduction to JsonPowerDB
 
 ![Response](https://github.com/catherene9/WebFormExample/blob/main/Screenshots/response.JPG)
 
+![Visualize](https://github.com/catherene9/WebFormExample/blob/main/Screenshots/server.JPG)
+
+### Other Information
+Do check out: https://github.com/CathereneJoshi (main account)
+

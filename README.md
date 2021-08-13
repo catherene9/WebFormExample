@@ -13,10 +13,16 @@ This repo contains the code and output of the course-Introduction to JsonPowerDB
 ### 1.0 Release Notes
 
 #### August 13, 2021
-###### Features
+##### Features
 * Form consists of Employee ID, name, email id
 * saveEmployee(), resetForm(), validateAndGetFormData() are defined
 * createPUTRequest(), executeCommandAtGivenBaseUrl() are taken from the provided source code attached in the code.
 
 ### Screenshots
+
+![Form](https://github.com/catherene9/WebFormExample/blob/main/Screenshots/form.JPG)
+
+![Submit](https://github.com/catherene9/WebFormExample/blob/main/Screenshots/submit.JPG)
+
+![Response](https://github.com/catherene9/WebFormExample/blob/main/Screenshots/response.JPG)
 

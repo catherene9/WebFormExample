@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en">
+    <head>
+        <style>
+            form {
+                width: 300px;
+                margin: 0 auto;
+            }
+            
+            
+        </style>
+        <title>Bootstrap Example</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://login2explore.com/jpdb/resources/js/0.0.3/jpdb-commons.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <center><h2>Vertical (basic) form</h2></center><br>
+            <hr><br>
+            <form id="empForm" method="post">
+                <div class="form-group">
+                    <span><label for="empId">Employee ID:</label> <label id="empIdMsg">
+                        </label></span>
+                    <input type="text" class="form-control" name="empId" id="empId"
+                           placeholder="Enter Employee ID" required>
+                </div>
+                <div class="form-group">
+                    <label for="empName">Employee Name:</label>
+                    <input type="text" class="form-control" id="empName"
+                           placeholder="Enter Employee Name" name="empName">
+                </div>
+                <div class="form-group">
+                    <label for="empEmail">Email:</label>
+                    <input type="email" class="form-control" id="empEmail"
+                           placeholder="Enter Employee Email" name="empEmail">
+                </div>
+                <input type="button" class="btn btn-primary" id="empSave" value="Save"
+                       onclick="saveEmployee();">
+            </form>
+        </div>
+
+        <script>
+
+            function validateAndGetFormData() {
+                var empIdVar = $("#empId").val(); //jquery
+                if (empIdVar === "") { //emty str alrets
+                    alert("Employee ID Required Value");
+                    $("#empId").focus(); //cursor moves to empID
+                    return "";
+                }
+                var empNameVar = $("#empName").val();
+                if (empNameVar === "") {
+                    alert("Employee Name is Required Value");
+                    $("#empName").focus();
+                    return "";
+                }
+                var empEmailVar = $("#empEmail").val();
+                if (empEmailVar === "") {
+                    alert("Employee Email is Required Value");
+                    $("#empEmail").focus();
+                    return "";
+                }
+                var jsonStrObj = {//json str obj
+                    empId: empIdVar,
+                    empName: empNameVar,
+                    empEmail: empEmailVar,
+                };
+                return JSON.stringify(jsonStrObj);
+            }
+            /*
+             // This method is used to create PUT Json request.
+             function createPUTRequest(connToken, jsonObj, dbName, relName) {
+             var putRequest = "{\n"
+             + "\"token\" : \""
+             + connToken //takes token
+             + "\","
+             + "\"dbName\": \""
+             + dbName
+             + "\",\n" + "\"cmd\" : \"PUT\",\n"
+             + "\"rel\" : \""
+             + relName + "\","
+             + "\"jsonStr\": \n"
+             + jsonObj
+             + "\n"
+             + "}";
+             return putRequest;
+             }*/
+
+            //function saveEmployee() {
+            //alert("It worked!");
+            //Validate form data
+
+            //create JPDB request string
+
+            //execute str
+
+            //reset form data
+
+            //}
+            /*
+             function executeCommand(reqString, dbBaseUrl, apiEndPointUrl) {
+             var url = dbBaseUrl + apiEndPointUrl; //complete url
+             var jsonObj; //response
+             $.post(url, reqString, function (result) { //jquery for ajax call, call back funct returning res
+             jsonObj = JSON.parse(result);
+             }).fail(function (result) { //if failed will return response in jsonobj
+             var dataJsonObj = result.responseText;
+             jsonObj = JSON.parse(dataJsonObj);
+             });
+             return jsonObj;
+             }*/
+
+            function resetForm() { //resets the form
+                $("#empId").val("")
+                $("#empName").val("");
+                $("#empEmail").val("");
+                $("#empId").focus(); // puts the cursor on the first field
+            }
+
+            function saveEmployee() {
+                var jsonStr = validateAndGetFormData();  //validates  and creates get req
+                if (jsonStr === "") { //if no data, returns else it accepts
+                    return;
+                }
+                var putReqStr = createPUTRequest("90936252|-31948851029970859|90943727",
+                        jsonStr, "SAMPLE", "EMP-REL"); //put req
+                alert(putReqStr);
+                jQuery.ajaxSetup({async: false}); //turns off multithreading for a while
+                var resultObj = executeCommandAtGivenBaseUrl(putReqStr, "http://api.login2explore.com:5577", "/api/iml");
+
+                jQuery.ajaxSetup({async: true} //after completion, turns on multithreading
+                );
+                alert(JSON.stringify(resultObj));
+                resetForm();
+            }
+        </script>
+
+
+    </body>
+</html>
